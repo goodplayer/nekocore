@@ -9,7 +9,7 @@
 
 	<groupId>net.moetang</groupId>
 	<artifactId>nekocore</artifactId>
-	<version>0.0.10-r</version>
+	<version>0.0.10-r-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>nekocore</name>
