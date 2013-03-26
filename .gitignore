@@ -1,0 +1,10 @@
+src/main/webapp/WEB-INF/classes/
+target/
+.settings/
+.project
+*.DS_Store
+.classpath
+settings.xml
+bin/
+pom.xml.releaseBackup
+release.properties
