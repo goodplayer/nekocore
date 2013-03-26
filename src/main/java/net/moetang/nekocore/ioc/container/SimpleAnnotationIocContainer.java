@@ -1,5 +1,6 @@
 package net.moetang.nekocore.ioc.container;
 
+import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -24,8 +25,10 @@ import net.moetang.nekocore.ioc.subcore.SimpleRegister;
  * DI注解到：1、如果实现类有接口，则注解到第一个接口类型的成员上，2、如果实现类没有接口，则注解到相应类型的成员上<br />
  *
  */
-public class SimpleAnnotationIocContainer implements IocContainer, SimpleRegister {
-	private Map<String, Object> preReg = new HashMap<String, Object>();
+public class SimpleAnnotationIocContainer implements IocContainer, SimpleRegister, Serializable {
+	private static final long serialVersionUID = -7677381501973211745L;
+
+	private transient Map<String, Object> preReg = new HashMap<String, Object>();
 	private Map<String, Object> beans = new HashMap<>();
 
 	public <T> T get(String name, Class<T> clazz) {
@@ -63,6 +66,7 @@ public class SimpleAnnotationIocContainer implements IocContainer, SimpleRegiste
 		for(Entry<String, Object> entry : preReg.entrySet()){
 			beans.put(entry.getKey(), this.analyseObjectDependency(entry.getValue()));
 		}
+		preReg.clear();
 	}
 
 	public void destroy() {
