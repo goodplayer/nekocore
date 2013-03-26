@@ -13,7 +13,7 @@
 	<version>0.0.10-r-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>nekoioc</name>
+	<name>nekocore</name>
 	<url>http://maven.apache.org</url>
 	<description>neko core project</description>
 
