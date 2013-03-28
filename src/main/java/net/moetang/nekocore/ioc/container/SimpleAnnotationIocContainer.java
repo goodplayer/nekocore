@@ -101,6 +101,8 @@ public class SimpleAnnotationIocContainer implements IocContainer, SimpleRegiste
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -111,6 +113,8 @@ public class SimpleAnnotationIocContainer implements IocContainer, SimpleRegiste
 		} catch (InstantiationException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
