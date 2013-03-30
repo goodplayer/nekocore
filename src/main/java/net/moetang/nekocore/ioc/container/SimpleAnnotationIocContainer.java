@@ -154,8 +154,19 @@ public class SimpleAnnotationIocContainer implements IocContainer, SimpleRegiste
 		}
 		Object injObj = preReg.get(name);
 		if(injObj != null){
-			field.setAccessible(true);
-			field.set(obj, injObj);
+			try {
+				field.setAccessible(true);
+				field.set(obj, injObj);
+			} catch (SecurityException e) {
+				// if security manager refuse to modify the accessible parameter to fields
+				// then
+				try {
+					String setFieldName = "set"+field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1);
+					obj.getClass().getMethod(setFieldName, injObj.getClass());
+				} catch (NoSuchMethodException | SecurityException e1) {
+					e1.printStackTrace();
+				}
+			}
 		}
 	}
 	protected Class<?> getParentClass(Class<?> clazz){
