@@ -157,7 +157,8 @@ public class SimpleAnnotationIocContainer implements IocContainer, SimpleRegiste
 			try {
 				field.setAccessible(true);
 				field.set(obj, injObj);
-			} catch (SecurityException e) {
+				field.setAccessible(false);
+			} catch (SecurityException | IllegalAccessException e) {
 				// if security manager refuse to modify the accessible parameter to fields
 				// then
 				try {
