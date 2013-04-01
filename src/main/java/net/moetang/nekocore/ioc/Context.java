@@ -6,4 +6,5 @@ package net.moetang.nekocore.ioc;
  */
 public interface Context {
 	public <T> T get(String name, Class<T> clazz);
+	public <T> T inject(T obj);
 }

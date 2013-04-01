@@ -174,4 +174,10 @@ public class SimpleAnnotationIocContainer implements IocContainer, SimpleRegiste
 		return clazz.getSuperclass();
 	}
 
+	@Override
+	public <T> T inject(T obj) {
+		// nothing to implement
+		return null;
+	}
+
 }
