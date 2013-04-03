@@ -125,7 +125,7 @@ public class SimpleAnnotationIocContainer implements IocContainer, SimpleRegiste
 	public void unregister(Class<?> clazz) {
 	}
 	
-	protected Object analyseObjectDependency(Object obj){
+	protected <T> T analyseObjectDependency(T obj){
 		Class<?> clazz = obj.getClass();
 		do{
 			Field[] fields = clazz.getDeclaredFields();
@@ -176,8 +176,7 @@ public class SimpleAnnotationIocContainer implements IocContainer, SimpleRegiste
 
 	@Override
 	public <T> T inject(T obj) {
-		// nothing to implement
-		return null;
+		return this.analyseObjectDependency(obj);
 	}
 
 }
