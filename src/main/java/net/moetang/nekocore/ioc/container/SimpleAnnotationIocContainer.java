@@ -2,6 +2,7 @@ package net.moetang.nekocore.ioc.container;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
@@ -159,12 +160,19 @@ public class SimpleAnnotationIocContainer implements IocContainer, SimpleRegiste
 		Object injObj = srcMap.get(name);
 		if(injObj != null){
 			try {
-				boolean isOrigAccessible = field.isAccessible();
-				if(!isOrigAccessible)
-					field.setAccessible(true);
-				field.set(obj, injObj);
-				if(!isOrigAccessible)
-					field.setAccessible(false);
+				int modifier = field.getModifiers();
+				if(Modifier.isPrivate(modifier)){
+					boolean isOrigAccessible = field.isAccessible();
+					if(!isOrigAccessible){
+						field.setAccessible(true);//only when it is private
+					}
+					field.set(obj, injObj);
+					if(!isOrigAccessible){
+						field.setAccessible(false);
+					}
+				}else{
+					field.set(obj, injObj);
+				}
 			} catch (SecurityException | IllegalAccessException e) {
 				// if security manager refuse to modify the accessible parameter to fields
 				// then
