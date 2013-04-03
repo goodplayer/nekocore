@@ -6,19 +6,35 @@ import net.moetang.nekocore.ioc.annotation.ResourceBean;
 import net.moetang.nekocore.ioc.container.helper.SimpleAnnotationIocContainerHelper;
 
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class SimpleAnnotationIocContainerTest {
+	private static Context testContainer;
+	@BeforeClass
+	public static void makeContainer(){
+		SimpleAnnotationIocContainerHelper helper = new SimpleAnnotationIocContainerHelper();
+		helper.addPackage(SimpleAnnotationIocContainerTest.class.getPackage());
+		SimpleAnnotationIocContainerTest.testContainer = helper.createContainer();
+	}
 	@Test
 	public void testRegister(){
-		SimpleAnnotationIocContainerHelper helper = new SimpleAnnotationIocContainerHelper();
-		helper.addPackage(this.getClass().getPackage());
-		Context context = helper.createContainer();
-		Assert.assertNotEquals(null, context.get(A.class.getName(), A.class));
-		Assert.assertNotEquals(null, context.get(B.class.getName(), B.class).getA());
-		Assert.assertNotEquals(null, context.get("indexAction", C.class));
-		Assert.assertNotEquals(null, context.get("indexAction", C.class).getA());
-		Assert.assertNotEquals(null, context.get("indexAction", C.class).getB());
+		Assert.assertNotEquals(null, testContainer.get(A.class.getName(), A.class));
+		Assert.assertNotEquals(null, testContainer.get(B.class.getName(), B.class).getA());
+		Assert.assertNotEquals(null, testContainer.get("indexAction", C.class));
+		Assert.assertNotEquals(null, testContainer.get("indexAction", C.class).getA());
+		Assert.assertNotEquals(null, testContainer.get("indexAction", C.class).getB());
+	}
+	@Test
+	public void testExternalInjection(){
+		C c = new C();
+		Assert.assertNull(c.getA());
+		Assert.assertNull(c.getB());
+		
+		SimpleAnnotationIocContainerTest.testContainer.inject(c);
+
+		Assert.assertNotNull(c.getA());
+		Assert.assertNotNull(c.getB());
 	}
 }
 @ResourceBean

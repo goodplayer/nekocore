@@ -64,7 +64,7 @@ public class SimpleAnnotationIocContainer implements IocContainer, SimpleRegiste
 
 	public void prepare() {
 		for(Entry<String, Object> entry : preReg.entrySet()){
-			beans.put(entry.getKey(), this.analyseObjectDependency(entry.getValue()));
+			beans.put(entry.getKey(), this.analyseObjectDependency(entry.getValue(), preReg));
 		}
 		preReg.clear();
 	}
@@ -125,7 +125,7 @@ public class SimpleAnnotationIocContainer implements IocContainer, SimpleRegiste
 	public void unregister(Class<?> clazz) {
 	}
 	
-	protected <T> T analyseObjectDependency(T obj){
+	protected final <T> T analyseObjectDependency(T obj, Map<String, Object> srcMap){
 		Class<?> clazz = obj.getClass();
 		do{
 			Field[] fields = clazz.getDeclaredFields();
@@ -133,7 +133,7 @@ public class SimpleAnnotationIocContainer implements IocContainer, SimpleRegiste
 				DI anno = field.getAnnotation(DI.class);
 				if(anno != null){
 					try {
-						this.fieldInjection(obj, field, anno);
+						this.fieldInjection(obj, field, anno, srcMap);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -145,14 +145,18 @@ public class SimpleAnnotationIocContainer implements IocContainer, SimpleRegiste
 		
 		return obj;
 	}
-	protected void fieldInjection(Object obj, Field field, DI anno) throws IllegalArgumentException, IllegalAccessException{
+	
+	protected <T> T analyseObjectDependency(T obj){
+		return this.analyseObjectDependency(obj, beans);
+	}
+	protected final void fieldInjection(Object obj, Field field, DI anno, Map<String, Object> srcMap) throws IllegalArgumentException, IllegalAccessException{
 		String name = null;
 		if(anno.value().length() != 0){
 			name = anno.value();
 		}else{
 			name = field.getType().getName();
 		}
-		Object injObj = preReg.get(name);
+		Object injObj = srcMap.get(name);
 		if(injObj != null){
 			try {
 				field.setAccessible(true);
