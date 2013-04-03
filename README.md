@@ -11,6 +11,6 @@ How to use, add below to your pom.xml:
 <dependency>
     <groupId>net.moetang</groupId>
     <artifactId>nekocore</artifactId>
-    <version>0.0.10-r</version>
+    <version>0.0.11-r</version>
 </dependency>
 ```
