@@ -25,7 +25,7 @@ public class ClassTest {
 			System.out.println(field.getName());
 		}
 		Assert.assertEquals(2, B.class.getFields().length);
-		System.out.println("=======================");
+		System.out.println("===========inherited field============");
 		for(Field field : B.class.getDeclaredFields()){
 			System.out.println(field.getName());
 		}
