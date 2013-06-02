@@ -14,7 +14,7 @@ public final class UnsafeUtils {
 	public static synchronized Unsafe getUnsafe() {
 		if (unsafeInst != null) {
 			return unsafeInst;
-		} else
+		} else{
 			try {
 				Field field = UnsafeUtils.class.getClassLoader()
 						.loadClass("sun.misc.Unsafe")
@@ -27,7 +27,11 @@ public final class UnsafeUtils {
 					| IllegalAccessException e) {
 				e.printStackTrace();
 				return null;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
 			}
+		}
 	}
 	public static UnsafeProxy getProxy(){
 		if(getUnsafe() != null){

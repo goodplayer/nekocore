@@ -12,7 +12,7 @@ public interface MillisTimeCount {
 	public long countTime();
 	
 	/**
-	 * return the time of (to - from)
+	 * return the time of (toIndex - fromIndex)
 	 * @param from
 	 * @param to
 	 * @return (to - from)
