@@ -7,7 +7,11 @@ package net.moetang.nekocore.lang;
  *
  */
 public class FastException extends RuntimeException {
-	private static final long serialVersionUID = -2389051434406953701L;
+	private static final long serialVersionUID = 2888486587379012107L;
+	private static final FastException self = new FastException();
+	public static void throwIt(){
+		throw self;
+	}
 	public FastException() {
 		super();
 	}
