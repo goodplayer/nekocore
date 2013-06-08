@@ -1,5 +1,7 @@
 package net.moetang.nekocore.lang;
 
+import java.util.Collection;
+
 public class Check {
 	public static boolean isNull(Object o){
 		return (o == null) ? true : false;
@@ -44,5 +46,8 @@ public class Check {
 	}
 	public static <T> boolean hasElements(T[] array){
 		return (array != null && array.length > 0)? true:false;
+	}
+	public static <T> boolean hasElements(Collection<T> coll){
+		return (coll != null && coll.size() > 0)? true:false;
 	}
 }

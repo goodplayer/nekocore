@@ -12,6 +12,9 @@ public class FastException extends RuntimeException {
 	public static void throwIt(){
 		throw self;
 	}
+	public static FastException returnIt(){
+		return self;
+	}
 	public FastException() {
 		super();
 	}
