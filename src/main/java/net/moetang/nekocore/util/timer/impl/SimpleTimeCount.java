@@ -22,7 +22,7 @@ public class SimpleTimeCount implements MillisTimeCount {
 	@Override
 	public long countTime() {
 		if((!startSet) || (!endSet)){
-			return 0;
+			return -1;
 		}
 		return (end - start);
 	}
@@ -38,6 +38,12 @@ public class SimpleTimeCount implements MillisTimeCount {
 			return "please set two point in order to calculate during time";
 		}
 		return "The time between two point is "+this.countTime()+" ms";
+	}
+
+	@Override
+	public void reset() {
+		this.startSet = false;
+		this.endSet = false;
 	}
 
 }

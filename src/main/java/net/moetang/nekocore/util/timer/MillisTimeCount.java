@@ -18,4 +18,9 @@ public interface MillisTimeCount {
 	 * @return (to - from)
 	 */
 	public long countTime(int from, int to);
+	
+	/**
+	 * set Time Count to initialized status
+	 */
+	public void reset();
 }
