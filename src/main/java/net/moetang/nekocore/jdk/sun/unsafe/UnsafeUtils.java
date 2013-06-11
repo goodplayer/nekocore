@@ -7,14 +7,17 @@ import sun.misc.Unsafe;
 @SuppressWarnings("restriction")
 public final class UnsafeUtils {
 	private static volatile Unsafe unsafeInst;
+	
+	private static volatile boolean isInitialized = false;
 
 	private UnsafeUtils() {
 	}
 
 	public static synchronized Unsafe getUnsafe() {
-		if (unsafeInst != null) {
+		if (unsafeInst != null || isInitialized) {
 			return unsafeInst;
 		} else{
+			isInitialized = true;
 			try {
 				Field field = UnsafeUtils.class.getClassLoader()
 						.loadClass("sun.misc.Unsafe")
