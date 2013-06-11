@@ -37,6 +37,12 @@ public final class NativeFastCompare extends SoftCompare {
 	static {
 		BYTE_ARRAY_BASE_OFFSET = up.arrayBaseOffset(byte[].class);
 	}
+	
+	@Override
+	public int compare(byte[] array1, byte[] array2) {
+		isIndexValid(array1.length, 0, array2.length, 0, array1.length);
+		return this.compare(array1, 0, array2, 0, array1.length);
+	}
 
 	@Override
 	public int compare(byte[] buffer1, int offset1, byte[] buffer2,
