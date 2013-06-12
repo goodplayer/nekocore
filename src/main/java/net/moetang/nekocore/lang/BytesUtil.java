@@ -1,6 +1,21 @@
 package net.moetang.nekocore.lang;
 
 public class BytesUtil {
+	public final static byte[] shortToBytes(short src) {
+		return shortToBytes(src, false);
+	}
+
+	public final static byte[] shortToBytes(short src, boolean isBigEndian) {
+		byte[] r = new byte[2];
+		if (isBigEndian) {
+			r[1] = (byte) (src & 0xff);
+			r[0] = (byte) ((src >> 8) & 0xff);
+		} else {
+			r[0] = (byte) (src & 0xff);
+			r[1] = (byte) ((src >> 8) & 0xff);
+		}
+		return r;
+	}
 	public final static byte[] intToBytes(int src) {
 		return intToBytes(src, false);
 	}

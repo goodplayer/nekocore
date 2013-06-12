@@ -52,4 +52,9 @@ public class CachedTimeService implements TimeService {
 		return cts;
 	}
 
+	@Override
+	public long currentTimeNano() {
+		return System.nanoTime();
+	}
+
 }

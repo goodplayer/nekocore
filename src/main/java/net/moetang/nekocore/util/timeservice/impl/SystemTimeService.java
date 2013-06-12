@@ -13,4 +13,9 @@ public class SystemTimeService implements TimeService {
 	public void shutdown() {
 	}
 
+	@Override
+	public long currentTimeNano() {
+		return System.nanoTime();
+	}
+
 }
